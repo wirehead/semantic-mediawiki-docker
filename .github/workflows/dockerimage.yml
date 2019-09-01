@@ -10,9 +10,9 @@ jobs:
  
     steps:
     - uses: actions/checkout@v1
-    - name: Docker Login
-      run: docker login docker.pkg.github.com -u ${{ github.actor}} -p ${{ secrets.GITHUB_TOKEN }}
+#    - name: Docker Login
+#      run: docker login docker.pkg.github.com -u ${{ github.actor}} -p ${{ secrets.GITHUB_TOKEN }}
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag docker.pkg.github.com/wirehead/semantic-mediawiki:${{ github.sha }}
-    - name: Push the docker image
-      run: docker push docker.pkg.github.com/wirehead/semantic-mediawiki:${{ github.sha }}
+#    - name: Push the docker image
+#      run: docker push docker.pkg.github.com/wirehead/semantic-mediawiki:${{ github.sha }}
