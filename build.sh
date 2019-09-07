@@ -1,1 +1,1 @@
-docker build . -t us.gcr.io/fluid-house-145819/semantic-mediawiki-docker
+docker build . -t docker.pkg.github.com/wirehead/semantic-mediawiki
