@@ -51,26 +51,17 @@ $wgEnotifUserTalk = false; # UPO
 $wgEnotifWatchlist = false; # UPO
 $wgEmailAuthentication = true;
 
-## Database settings
-$wgDBtype = "sqlite";
-$wgDBserver = "";
-$wgDBname = "my_wiki";
-$wgDBuser = "";
-$wgDBpassword = "";
 
-# SQLite-specific settings
-$wgSQLiteDataDir = "/var/www/data";
-$wgObjectCaches[CACHE_DB] = [
-    'class' => SqlBagOStuff::class,
-    'loggroup' => 'SQLBagOStuff',
-    'server' => [
-        'type' => 'sqlite',
-        'dbname' => 'wikicache',
-        'tablePrefix' => '',
-        'dbDirectory' => $wgSQLiteDataDir,
-        'flags' => 0
-    ]
-];
+## Database settings
+$wgDBtype = "postgres";
+$wgDBserver = "192.168.1.64";
+$wgDBname = "my_wiki";
+$wgDBuser = "postgres";
+$wgDBpassword = "mysecretpassword";
+
+# Postgres specific settings
+$wgDBport = "5432";
+$wgDBmwschema = "mediawiki";
 
 ## Shared memory settings
 $wgMainCacheType = CACHE_ACCEL;
@@ -164,27 +155,16 @@ wfLoadExtension( 'Poem' );
 wfLoadExtension( 'JsonConfig' );
 wfLoadExtension( 'Graph' );
 wfLoadExtension( 'SubPageList3' );
+wfLoadExtension( 'Scribunto' );
+wfLoadExtension( 'SemanticScribunto' );
+wfLoadExtension( 'TemplateStyles' );
+
+$wgScribuntoDefaultEngine = 'luastandalone';
 
 # Load the added skins
 wfLoadSkin( 'chameleon' );
 
-wfLoadExtensions( [
-    'SemanticMediaWiki',
-    // Result formats
-    'SemanticResultFormats',
-    'Maps',
-    'ModernTimeline',
-    'Mermaid',
-    // General purpose
-    'SemanticExtraSpecialProperties',
-    'SemanticCompoundQueries',
-    // Domain specific
-    'SemanticCite',
-    'SemanticGlossary',
-    'SemanticMetaTags',
-    'SemanticBreadcrumbLinks',
-    'PageForms',
-] );
+require_once '/var/www/html/extensions/SemanticBundle/SemanticBundle.php';
 
 # Turn on SemanticMediaWiki
 enableSemantics( 'tst' );
@@ -196,3 +176,26 @@ $wgNamespacesWithSubpages[NS_MAIN] = 1;
 $wgShowExceptionDetails = true;
 $wgShowDBErrorBacktrace = true;
 $wgShowSQLErrors = true;
+
+$wgEnableUploads = true;
+
+#  Local configuration for MediaWiki
+ini_set( 'max_execution_time', 1000 );
+ini_set('memory_limit', '-1'); 
+
+# Move the SMW config directory
+$smwgConfigFileDir = '/var/www/localstore/smwconfig';
+
+# Workaround for a bug in mw-extension-registry-helper
+define("MW_VERSION", "1.31");
+
+# Apache rewrite
+$wgArticlePath = "/wiki/$1";
+$wgUploadDirectory = "/var/www/localstore/images";
+
+# Icons
+$wgLogo = "favicon-135x135.png";
+$wgLogoHD = [
+    "1.5x" => "favicon-202x202.png",
+    "2x" => "favicon-202x202.png"
+];

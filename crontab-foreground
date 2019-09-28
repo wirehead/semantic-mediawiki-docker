@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+cron -f -L 15
