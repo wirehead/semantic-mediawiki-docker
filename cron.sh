@@ -1,1 +1,1 @@
-docker run -v `pwd`/smwconfig:/var/www/smwconfig -v `pwd`/conf:/var/www/conf -v `pwd`/data:/var/www/data -v `pwd`/localstore:/var/www/localstore -v /home/wirehead/src/moinmoin2mediawiki/data-out/foo:/import docker.pkg.github.com/wirehead/semantic-mediawiki crontab-foreground
+docker run -v `pwd`/smwconfig:/var/www/smwconfig -v `pwd`/conf:/var/www/conf -v `pwd`/data:/var/www/data -v `pwd`/localstore:/var/www/localstore -v /home/wirehead/src/moinmoin2mediawiki/data-out/foo:/import wirehead/semantic-mediawiki-docker crontab-foreground

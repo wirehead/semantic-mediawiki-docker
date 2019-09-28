@@ -1,1 +1,1 @@
-docker build . -t docker.pkg.github.com/wirehead/semantic-mediawiki
+docker build . -t wirehead/semantic-mediawiki-docker
