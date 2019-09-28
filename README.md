@@ -1,6 +1,10 @@
 # Semantic MediaWiki as a docker container
 
-A nice Docker container designed for running Semantic MediaWiki with some useful modules already installed in a kubernetes-styled situation.
+![alt text](icons/favicon-202x202.png "Logo Title Text 1")
+
+A nice Docker container designed for running [Semantic MediaWiki](https://www.semantic-mediawiki.org/) with a set of useful modules already installed in a kubernetes-styled situation.
+
+**WORK IN PROGRESS WARNING**: I'm totally not finished messing with this.
 
 ## Basic operation
 
@@ -16,17 +20,19 @@ This is primarily designed to run atop Kube, but here's some entrypoints if you 
 
 ### A brief and non-normative list of what you want to do to run things in a kubernetes-styled situation
 
- 1. One process strictly for each container.  This is why pods schedule multiple containers per pod.  No supervisord or other such stuff
- 2. Secrets maintained separately from configuration, so you can inject them as a Secret,
+ 1. One process strictly for each container.  This is why pods schedule multiple containers per pod.  No supervisord or other such process supervision; your container runtime handles this.
+ 2. Secrets maintained separately from configuration, so you can inject them as a Secret.
  3. Config files exist in a directory that you can use a ConfigMap to inject them.
  4. Stateless containers, which precludes a *lot* of ways to do a 'friendly' setup.
- 5. Database is a separate concern.  Users may want to use a hosted database (Amazon RDS or the like) or at least store multiple different instances in a single bigger database.
+ 5. Database is a separate concern.  Users may want to use a hosted database (Amazon RDS or the like) or at least store multiple different instances in a single bigger database.  Helm charts that include their own database are not great here.
+ 6. If you are going to have local files, they need to be easily mapped and mounted volumes.
+ 7. Contains a discrete setup process that won't accidentally wipe out your stuff.
 
 ### The layers involved
 
 1. Debian Buster
-2. PHP 7.2 Buster Apache
-3. MediaWiki LTS
+2. [PHP 7.2 Buster Apache](https://hub.docker.com/_/php/)
+3. [MediaWiki](https://github.com/wikimedia/mediawiki-docker) LTS
 4. This dockerfile that adds customizations:
     * Installs Composer
     * Installs some system-level packages
@@ -53,6 +59,8 @@ This is primarily designed to run atop Kube, but here's some entrypoints if you 
 
 ### Database
 
+Also note that the `data` directory needs to be writable to the `www-data` user.  Not just the files.  The whole directory.
+
 ### Images
 
 ### SemanticMediaWiki config
@@ -76,15 +84,6 @@ Use this to get into a shell:
 ```
 docker exec -it some-mediawiki /bin/bash -il
 ```
-
-### Running sqlite locally for messing around purposes
-
-You want to do something like this:
-```
-docker run --name some-mediawiki --rm -p 8080:80 -v `pwd`/conf:/var/www/conf -v `pwd`/data:/var/www/data docker.pkg.github.com/wirehead/semantic-mediawiki
-```
-
-Also note that the `data` directory needs to be writable to the `www-data` user.  Not just the files.  The whole directory.
 
 ## Inspired by:
 
