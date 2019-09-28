@@ -64,7 +64,7 @@ $wgDBport = "5432";
 $wgDBmwschema = "mediawiki";
 
 ## Shared memory settings
-$wgMainCacheType = CACHE_ACCEL;
+$wgMainCacheType = CACHE_NONE;
 $wgMemCachedServers = [];
 
 ## To enable image uploads, make sure the 'images' directory

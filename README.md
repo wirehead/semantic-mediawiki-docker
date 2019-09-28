@@ -51,7 +51,7 @@ This is primarily designed to run atop Kube, but here's some entrypoints if you 
 ## Todo
 
  * Allow database and stuff to be configured via environment variables.
- * Cron config
+ * Figure out why the jobs aren't running separately
  * Docs
  * Matching Helm chart
 
