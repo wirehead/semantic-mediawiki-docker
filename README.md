@@ -1,6 +1,6 @@
 # Semantic MediaWiki as a docker container
 
-![Logo](icons/favicon-202x202.png "Logo")
+![Logo](https://github.com/wirehead/semantic-mediawiki-docker/icons/favicon-202x202.png "Logo")
 
 A nice Docker container designed for running [Semantic MediaWiki](https://www.semantic-mediawiki.org/) with a set of useful modules already installed in a kubernetes-styled situation.
 
