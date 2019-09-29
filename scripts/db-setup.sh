@@ -22,15 +22,18 @@ ln -s /var/www/conf/LocalSettings.php /var/www/html/LocalSettings.php
 echo LocalSettings.php restored
 echo
 
-# Run update.php, to set up all of the extensions
-
-echo update.php
+echo Creating localstore
 echo
-
-php maintenance/update.php
 
 # Copy the htaccess file
 mkdir -p /var/www/localstore/images
 mkdir -p /var/www/localstore/smwconfig 
 cp /var/www/html/images/* /var/www/localstore/images
 chown -R www-data:www-data /var/www/localstore
+
+# Run update.php, to set up all of the extensions
+
+echo update.php
+echo
+
+php maintenance/update.php
