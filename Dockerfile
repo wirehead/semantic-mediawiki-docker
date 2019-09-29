@@ -72,8 +72,8 @@ RUN php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filenam
 RUN composer update
 
 # Place our maintenence and setup scripts
-COPY scripts/db-setup.sh /usr/local/bin/
-COPY scripts/crontab-foreground /usr/local/bin/
+COPY scripts/* /usr/local/bin/
+RUN chmod 755 /usr/local/bin/*
 
 # Add crontab file in the cron directory
 ADD crontab /etc/crontab
