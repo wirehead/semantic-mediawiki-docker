@@ -15,11 +15,10 @@ if ( !defined( 'MEDIAWIKI' ) ) {
     exit;
 }
 
-
 ## Uncomment this to disable output compression
 # $wgDisableOutputCompression = true;
 
-$wgSitename = "tst";
+$wgSitename = $_ENV["MEDIAWIKI_SITE_NAME"];
 $wgMetaNamespace = "Tst";
 
 ## The URL base path to the directory containing the wiki;
@@ -30,38 +29,36 @@ $wgMetaNamespace = "Tst";
 $wgScriptPath = "";
 
 ## The protocol and server name to use in fully-qualified URLs
-$wgServer = "http://192.168.1.64:8080";
+$wgServer = $_ENV["MEDIAWIKI_SITE_SERVER"];
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
 
-## The URL path to the logo.  Make sure you change this from the default,
-## or else you'll overwrite your logo when you upgrade!
-$wgLogo = "$wgResourceBasePath/resources/assets/wiki.png";
-
 ## UPO means: this is also a user preference option
 
-$wgEnableEmail = false;
+$wgEnableEmail = $_ENV["MEDIAWIKI_EMAIL_ENABLE"];
 $wgEnableUserEmail = true; # UPO
 
-$wgEmergencyContact = "apache@192.168.1.64";
-$wgPasswordSender = "apache@192.168.1.64";
+$wgEmergencyContact = $_ENV["MEDIAWIKI_EMAIL_EMERG_CONT"];
+$wgPasswordSender = $_ENV["MEDIAWIKI_EMAIL_PW_SENDER"];
 
 $wgEnotifUserTalk = false; # UPO
 $wgEnotifWatchlist = false; # UPO
 $wgEmailAuthentication = true;
 
-
 ## Database settings
-$wgDBtype = "postgres";
-$wgDBserver = "192.168.1.64";
-$wgDBname = "my_wiki";
-$wgDBuser = "postgres";
-$wgDBpassword = "mysecretpassword";
+$wgDBtype = $_ENV["MEDIAWIKI_DB_TYPE"];
+$wgDBserver = $_ENV["MEDIAWIKI_DB_HOST"];
+$wgDBname = $_ENV["MEDIAWIKI_DB_NAME"];
+$wgDBuser = $_ENV["MEDIAWIKI_DB_USER"];
+$wgDBpassword = $_ENV["MEDIAWIKI_DB_PASSWORD"];
 
 # Postgres specific settings
-$wgDBport = "5432";
-$wgDBmwschema = "mediawiki";
+$wgDBport = $_ENV["MEDIAWIKI_DB_PORT"];
+$wgDBmwschema = $_ENV["MEDIAWIKI_DB_SCHEMA"];
+
+# SQLite-specific settings
+$wgSQLiteDataDir = $_ENV["MEDIAWIKI_DATABASE_DIR"];
 
 ## Shared memory settings
 $wgMainCacheType = CACHE_NONE;
@@ -69,7 +66,7 @@ $wgMemCachedServers = [];
 
 ## To enable image uploads, make sure the 'images' directory
 ## is writable, then set this to true:
-$wgEnableUploads = true;
+$wgEnableUploads = $_ENV["MEDIAWIKI_ENABLE_UPLOADS"];
 $wgUseImageMagick = true;
 $wgImageMagickConvertCommand = "/usr/bin/convert";
 
@@ -79,7 +76,7 @@ $wgUseInstantCommons = false;
 # Periodically send a pingback to https://www.mediawiki.org/ with basic data
 # about this MediaWiki instance. The Wikimedia Foundation shares this data
 # with MediaWiki developers to help guide future development efforts.
-$wgPingback = true;
+$wgPingback = false;
 
 ## If you use ImageMagick (or any other shell command) on a
 ## Linux server, this will need to be set to the name of an
@@ -92,9 +89,9 @@ $wgShellLocale = "C.UTF-8";
 #$wgCacheDirectory = "$IP/cache";
 
 # Site language code, should be one of the list in ./languages/data/Names.php
-$wgLanguageCode = "en";
+$wgLanguageCode = $_ENV["MEDIAWIKI_SITE_LANG"];
 
-$wgSecretKey = "38e094128cb103129e13530c86c389350c94dfc7c278f28da4f387064908192b";
+$wgSecretKey = $_ENV["MEDIAWIKI_SECRET_KEY"];
 
 # Changing this will log out all existing sessions.
 $wgAuthenticationTokenVersion = "1";
@@ -167,7 +164,7 @@ wfLoadSkin( 'chameleon' );
 require_once '/var/www/html/extensions/SemanticBundle/SemanticBundle.php';
 
 # Turn on SemanticMediaWiki
-enableSemantics( 'tst' );
+enableSemantics( $_ENV["SMW_SEMANTIC_URL"] );
 
 # Set Subpages on
 $wgNamespacesWithSubpages[NS_MAIN] = 1;
@@ -176,8 +173,6 @@ $wgNamespacesWithSubpages[NS_MAIN] = 1;
 $wgShowExceptionDetails = true;
 $wgShowDBErrorBacktrace = true;
 $wgShowSQLErrors = true;
-
-$wgEnableUploads = true;
 
 #  Local configuration for MediaWiki
 ini_set( 'max_execution_time', 1000 );

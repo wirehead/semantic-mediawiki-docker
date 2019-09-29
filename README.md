@@ -1,6 +1,6 @@
 # Semantic MediaWiki as a docker container
 
-![alt text](icons/favicon-202x202.png "Logo Title Text 1")
+![Logo](icons/favicon-202x202.png "Logo")
 
 A nice Docker container designed for running [Semantic MediaWiki](https://www.semantic-mediawiki.org/) with a set of useful modules already installed in a kubernetes-styled situation.
 
@@ -15,6 +15,30 @@ This is primarily designed to run atop Kube, but here's some entrypoints if you 
  * To run a cron container: `cron.sh`
 
 ### Quickstart
+
+## Environment variables
+
+| Environment Variable       | Config Var       | Default Value            | Description  |
+| -------------------------- | ---------------- | ------------------------ | ------------------- |
+| MEDIAWIKI_SITE_SERVER      | $wgServer        | http://127.0.0.1:8080 | Set this to the server host, protocol, and port if it's not a standard port. This is what MediaWiki uses to generate URLs |
+| MEDIAWIKI_SITE_NAME        | $wgSitename      | tst                      | Name of the site |
+| MEDIAWIKI_SITE_LANG        | $wgLanguageCode  | en                       | Language of the site|
+| MEDIAWIKI_ADMIN_USER       |                  | admin                    | Name of the admin user |
+| MEDIAWIKI_ADMIN_PASS       |                  | password                 | Default password for the admin user |
+| MEDIAWIKI_DB_TYPE          | $wgDBtype        | sqlite                   | DB style (sqlite, postgres, or mysql) |
+| MEDIAWIKI_DB_HOST          | $wgDBserver      |                          | hostname for the DB (unneccessary for sqlite) |
+| MEDIAWIKI_DB_USER          | $wgDBuser        |                          | database user (not to be confused with admin user; this is how you log into the database) |
+| MEDIAWIKI_DB_PASSWORD      | $wgDBpassword    |                          | database password (not to be confused with admin password; this is how you log into the database) |
+| MEDIAWIKI_DB_NAME          | $wgDBname        | my_wiki                  | database name |
+| MEDIAWIKI_DB_PORT          | $wgDBport        |                          | database port |
+| MEDIAWIKI_DB_SCHEMA        | $wgDBmwschema    |                          | database schema (for postgresql) |
+| MEDIAWIKI_DATABASE_DIR     | $wgSQLiteDataDir | /var/www/data            | database directory (for sqlite) |
+| MEDIAWIKI_SECRET_KEY       | $wgSecretKey     | ......                   | secret key |
+| MEDIAWIKI_ENABLE_UPLOADS   | $wgEnableUploads | false                    | set a value to enable uploads |
+| MEDIAWIKI_ENABLE_EMAIL     | $wgEnableEmail   | false                    | set a value to enable email |
+| MEDIAWIKI_EMAIL_PW_SENDER  | $wgEmergencyContact |  | nobody@example.com | Password sender email |
+| MEDIAWIKI_EMAIL_EMERG_CONT | $wgPasswordSender | nobody@example.com      | Emergency contact |
+| SMW_SEMANTIC_URL           |                  | http://www.example.com/  | SemanticMediaWiki namespace for RDF properties |
 
 ## Some details
 
@@ -50,7 +74,6 @@ This is primarily designed to run atop Kube, but here's some entrypoints if you 
 
 ## Todo
 
- * Allow database and stuff to be configured via environment variables.
  * Figure out why the jobs aren't running separately
  * Docs
  * Matching Helm chart
@@ -89,3 +112,4 @@ docker exec -it some-mediawiki /bin/bash -il
 
  * https://github.com/wikimedia/mediawiki-docker
  * https://github.com/toniher/docker-SemanticMediaWiki
+ * https://github.com/benhutchins/docker-mediawiki

@@ -4,16 +4,29 @@ set -e
 cd /var/www/html/
 
 # The install script doesn't want there to be a LocalSettings.php file
+echo Killing LocalSettings.php
+echo
+
 rm /var/www/html/LocalSettings.php
-#php maintenance/install.php --dbtype sqlite --dbname "my_wiki" --dbuser "" --dbpassword "" --scriptpath "/var/www/html/" --conf "/var/www/conf/null.php" --pass "" --dbpath="/var/www/data/" Wirehead password
-php maintenance/install.php --dbtype postgres --dbname "my_wiki" --dbuser "postgres" --dbport 5432 --dbpass "mysecretpassword" --scriptpath "/var/www/html/" --dbserver 192.168.1.64 --conf "/var/www/conf/null.php" --pass "password" --dbpath="/var/www/data/" tst Wirehead
+
+echo Install.php
+echo
+
+php maintenance/install.php --dbtype "${MEDIAWIKI_DB_TYPE}" --dbname "${MEDIAWIKI_DB_NAME}" --dbuser "${MEDIAWIKI_DB_USER}" --dbport "${MEDIAWIKI_DB_PORT}" --dbpass "${MEDIAWIKI_DB_PASSWORD}" --scriptpath "/var/www/html/" --dbserver "${MEDIAWIKI_DB_HOST}" --pass "${MEDIAWIKI_ADMIN_PASS}" --dbpath "${MEDIAWIKI_DATABASE_DIR}" "${MEDIAWIKI_SITE_NAME}" "${MEDIAWIKI_ADMIN_USER}"
 
 # Now, we're going to replace the LocalSettings.php file that install.php just generated with ours
 # This way, update.php will work.
 rm /var/www/html/LocalSettings.php
 ln -s /var/www/conf/LocalSettings.php /var/www/html/LocalSettings.php
 
+echo LocalSettings.php restored
+echo
+
 # Run update.php, to set up all of the extensions
+
+echo update.php
+echo
+
 php maintenance/update.php
 
 # Copy the htaccess file
