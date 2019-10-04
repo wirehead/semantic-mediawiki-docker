@@ -1,1 +1,1 @@
-docker run --env-file=local_settings -v `pwd`/smwconfig:/var/www/smwconfig -v `pwd`/conf:/var/www/conf -v `pwd`/data:/var/www/data -v `pwd`/localstore:/var/www/localstore -v /home/wirehead/src/moinmoin2mediawiki/data-out/foo:/import wirehead/semantic-mediawiki-docker crontab-foreground
+docker run --env-file=local_settings -v `pwd`/smwconfig:/var/www/smwconfig -v `pwd`/conf:/var/www/conf -v `pwd`/data:/var/www/data -v `pwd`/localstore:/var/www/localstore wirehead/semantic-mediawiki-docker crontab-foreground
