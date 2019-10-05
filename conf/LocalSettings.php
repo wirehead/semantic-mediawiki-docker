@@ -18,7 +18,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 ## Uncomment this to disable output compression
 # $wgDisableOutputCompression = true;
 
-$wgSitename = $_ENV["MEDIAWIKI_SITE_NAME"];
+$wgSitename = getenv("MEDIAWIKI_SITE_NAME");
 $wgMetaNamespace = "Tst";
 
 ## The URL base path to the directory containing the wiki;
@@ -26,47 +26,51 @@ $wgMetaNamespace = "Tst";
 ## For more information on customizing the URLs
 ## (like /w/index.php/Page_title to /wiki/Page_title) please see:
 ## https://www.mediawiki.org/wiki/Manual:Short_URL
-$wgScriptPath = "";
+$wgScriptPath = getenv("MEDIAWIKI_SCRIPT_PATH");
 
 ## The protocol and server name to use in fully-qualified URLs
-$wgServer = $_ENV["MEDIAWIKI_SITE_SERVER"];
+$wgServer = getenv("MEDIAWIKI_SITE_SERVER");
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
 
 ## UPO means: this is also a user preference option
 
-$wgEnableEmail = $_ENV["MEDIAWIKI_EMAIL_ENABLE"];
+$wgEnableEmail = getenv("MEDIAWIKI_EMAIL_ENABLE");
 $wgEnableUserEmail = true; # UPO
 
-$wgEmergencyContact = $_ENV["MEDIAWIKI_EMAIL_EMERG_CONT"];
-$wgPasswordSender = $_ENV["MEDIAWIKI_EMAIL_PW_SENDER"];
+$wgEmergencyContact = getenv("MEDIAWIKI_EMAIL_EMERG_CONT");
+$wgPasswordSender = getenv("MEDIAWIKI_EMAIL_PW_SENDER");
 
 $wgEnotifUserTalk = false; # UPO
 $wgEnotifWatchlist = false; # UPO
 $wgEmailAuthentication = true;
 
 ## Database settings
-$wgDBtype = $_ENV["MEDIAWIKI_DB_TYPE"];
-$wgDBserver = $_ENV["MEDIAWIKI_DB_HOST"];
-$wgDBname = $_ENV["MEDIAWIKI_DB_NAME"];
-$wgDBuser = $_ENV["MEDIAWIKI_DB_USER"];
-$wgDBpassword = $_ENV["MEDIAWIKI_DB_PASSWORD"];
+$wgDBtype = getenv("MEDIAWIKI_DB_TYPE");
+$wgDBserver = getenv("MEDIAWIKI_DB_HOST");
+$wgDBname = getenv("MEDIAWIKI_DB_NAME");
+$wgDBuser = getenv("MEDIAWIKI_DB_USER");
+$wgDBpassword = getenv("MEDIAWIKI_DB_PASSWORD");
 
 # Postgres specific settings
-$wgDBport = $_ENV["MEDIAWIKI_DB_PORT"];
-$wgDBmwschema = $_ENV["MEDIAWIKI_DB_SCHEMA"];
+$wgDBport = getenv("MEDIAWIKI_DB_PORT");
+$wgDBmwschema = getenv("MEDIAWIKI_DB_SCHEMA");
 
 # SQLite-specific settings
-$wgSQLiteDataDir = $_ENV["MEDIAWIKI_DATABASE_DIR"];
+$wgSQLiteDataDir = getenv("MEDIAWIKI_DATABASE_DIR");
 
 ## Shared memory settings
-$wgMainCacheType = CACHE_NONE;
+if(php_sapi_name() == "cli") {
+    $wgMainCacheType    = CACHE_NONE;
+} else {
+    $wgMainCacheType    = CACHE_ACCEL;
+}
 $wgMemCachedServers = [];
 
 ## To enable image uploads, make sure the 'images' directory
 ## is writable, then set this to true:
-$wgEnableUploads = $_ENV["MEDIAWIKI_ENABLE_UPLOADS"];
+$wgEnableUploads = getenv("MEDIAWIKI_ENABLE_UPLOADS");
 $wgUseImageMagick = true;
 $wgImageMagickConvertCommand = "/usr/bin/convert";
 
@@ -89,9 +93,9 @@ $wgShellLocale = "C.UTF-8";
 #$wgCacheDirectory = "$IP/cache";
 
 # Site language code, should be one of the list in ./languages/data/Names.php
-$wgLanguageCode = $_ENV["MEDIAWIKI_SITE_LANG"];
+$wgLanguageCode = getenv("MEDIAWIKI_SITE_LANG");
 
-$wgSecretKey = $_ENV["MEDIAWIKI_SECRET_KEY"];
+$wgSecretKey = getenv("MEDIAWIKI_SECRET_KEY");
 
 # Changing this will log out all existing sessions.
 $wgAuthenticationTokenVersion = "1";
@@ -164,15 +168,17 @@ wfLoadSkin( 'chameleon' );
 require_once '/var/www/html/extensions/SemanticBundle/SemanticBundle.php';
 
 # Turn on SemanticMediaWiki
-enableSemantics( $_ENV["SMW_SEMANTIC_URL"] );
+enableSemantics( getenv("SMW_SEMANTIC_URL") );
 
 # Set Subpages on
 $wgNamespacesWithSubpages[NS_MAIN] = 1;
 
 # Enable long error messages
-$wgShowExceptionDetails = true;
-$wgShowDBErrorBacktrace = true;
-$wgShowSQLErrors = true;
+if (getenv("MEDIAWIKI_DEBUG")) {
+    $wgShowExceptionDetails = true;
+    $wgShowDBErrorBacktrace = true;
+    $wgShowSQLErrors = true;
+}
 
 #  Local configuration for MediaWiki
 ini_set( 'max_execution_time', 1000 );
@@ -182,7 +188,7 @@ ini_set('memory_limit', '-1');
 $smwgConfigFileDir = '/var/www/localstore/smwconfig';
 
 # Workaround for a bug in mw-extension-registry-helper
-define("MW_VERSION", "1.31");
+define("MW_VERSION", $wgVersion);
 
 # Apache rewrite
 $wgArticlePath = "/wiki/$1";
@@ -194,3 +200,13 @@ $wgLogoHD = [
     "1.5x" => "favicon-202x202.png",
     "2x" => "favicon-202x202.png"
 ];
+
+# Footer icons
+
+if (getenv("MEDIAWIKI_DISABLE_ICONS")) {
+    unset( $wgFooterIcons['poweredby'] ); 
+}
+
+# Responsive
+
+$wgVectorResponsive = true;

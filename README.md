@@ -4,6 +4,8 @@
 
 A nice Docker container designed for running [Semantic MediaWiki](https://www.semantic-mediawiki.org/) with a set of useful modules already installed in a kubernetes-styled situation.
 
+You probably don't want to run the containers as-is, it's mostly intended for use with my matching [helm chart](https://github.com/wirehead/wirehead-charts/tree/master/charts/semanticmediawiki)
+
 **WORK IN PROGRESS WARNING**: I'm totally not finished messing with this.
 
 ## Basic operation
@@ -20,7 +22,10 @@ This is primarily designed to run atop Kube, but here's some entrypoints if you 
 
 | Environment Variable       | Config Var       | Default Value            | Description  |
 | -------------------------- | ---------------- | ------------------------ | ------------------- |
+| MEDIAWIKI_DEBUG            |                  | unset                    | Set this to enable debug traces |
+| MEDIAWIKI_DISABLE_ICONS    | $wgFooterIcons   | unset                    | Set this to disable footer icons |
 | MEDIAWIKI_SITE_SERVER      | $wgServer        | `http://127.0.0.1:8080` | Set this to the server host, protocol, and port if it's not a standard port. This is what MediaWiki uses to generate URLs |
+| MEDIAWIKI_SCRIPT_PATH      | $wgScriptPath    | null
 | MEDIAWIKI_SITE_NAME        | $wgSitename      | `tst`                      | Name of the site |
 | MEDIAWIKI_SITE_LANG        | $wgLanguageCode  | `en`                       | Language of the site|
 | MEDIAWIKI_ADMIN_USER       |                  | `admin`                    | Name of the admin user |
@@ -56,7 +61,7 @@ This is primarily designed to run atop Kube, but here's some entrypoints if you 
 
 1. Debian Buster
 2. [PHP 7.2 Buster Apache](https://hub.docker.com/_/php/)
-3. [MediaWiki](https://github.com/wikimedia/mediawiki-docker) LTS
+3. [MediaWiki](https://github.com/wikimedia/mediawiki-docker)
 4. This dockerfile that adds customizations:
     * Installs Composer
     * Installs some system-level packages
@@ -71,12 +76,6 @@ This is primarily designed to run atop Kube, but here's some entrypoints if you 
 * The [SemanticMediaWiki config dir](https://www.semantic-mediawiki.org/wiki/Help:Setup_information_file).  Because SemanticMediaWiki has a bunch of very specific implementation details related to not necessarily using the same SQL database as everything else and using a SPARQL store, I can see why they decided it was simpler to use a JSON file in a known place to keep track of that.
 * No environment variables for configuration, no clear separation of the secret-secrets (the secret key and the database passwords, for example) from the configuration details.
 * Any MediaWiki extensions you want to run (and you want to run them) frequently need system dependencies.  Because MediaWiki is *old* a lot of the popular regular extensions aren't available yet as composer dependencies, so you also need to pull in files from random repos in weird places.  Ergo, if you want to run any customized set of extensions, you will need to make your own dockerfile.  This isn't actually that bad; lots of software requires you to run customized Docker builds if you want a custom module and lots of software that's still useful bit a bit old wasn't designed for a technology and methodology that didn't exist at the time.
-
-## Todo
-
- * Figure out why the jobs aren't running separately
- * Docs
- * Matching Helm chart
 
 ## Persistent Data
 

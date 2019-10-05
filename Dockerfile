@@ -1,8 +1,9 @@
-FROM mediawiki:1.31
+FROM mediawiki:1.33
 
 ARG COMPOSER_VERSION=1.9.0
 
 ENV MEDIAWIKI_SITE_SERVER http://127.0.0.1:8080
+ENV MEDIAWIKI_SCRIPT_PATH ""
 ENV MEDIAWIKI_SITE_NAME tst
 ENV MEDIAWIKI_SITE_LANG en
 ENV MEDIAWIKI_ADMIN_USER admin
@@ -45,16 +46,16 @@ COPY 000-default.conf /etc/apache2/sites-available
 COPY icons/* /var/www/html/
 
 # Download the non-Composer-based extensions
-RUN curl -o /tmp/JsonConfig-REL1_31-168e4bf.tar.gz https://extdist.wmflabs.org/dist/extensions/JsonConfig-REL1_31-168e4bf.tar.gz \
-  && tar -xzf /tmp/JsonConfig-REL1_31-168e4bf.tar.gz -C /var/www/html/extensions \
-  && curl -o /tmp/Graph-REL1_31-c455379.tar.gz https://extdist.wmflabs.org/dist/extensions/Graph-REL1_31-c455379.tar.gz \
-  && tar -xzf /tmp/Graph-REL1_31-c455379.tar.gz -C /var/www/html/extensions \
-  && curl -o /tmp/SubPageList3-REL1_31-f5bc2ea.tar.gz https://extdist.wmflabs.org/dist/extensions/SubPageList3-REL1_31-f5bc2ea.tar.gz \
-  && tar -xzf /tmp/SubPageList3-REL1_31-f5bc2ea.tar.gz -C /var/www/html/extensions \
-  && curl -o /tmp/Scribunto-REL1_31-106fbf4.tar.gz https://extdist.wmflabs.org/dist/extensions/Scribunto-REL1_31-106fbf4.tar.gz \
-  && tar -xzf /tmp/Scribunto-REL1_31-106fbf4.tar.gz -C /var/www/html/extensions \
-  && curl -o /tmp/MsUpload-REL1_31-d854ddf.tar.gz https://extdist.wmflabs.org/dist/extensions/MsUpload-REL1_31-d854ddf.tar.gz \
-  && tar -xzf /tmp/MsUpload-REL1_31-d854ddf.tar.gz -C /var/www/html/extensions \
+RUN curl -o /tmp/JsonConfig-REL1_33-e19c474.tar.gz https://extdist.wmflabs.org/dist/extensions/JsonConfig-REL1_33-e19c474.tar.gz \
+  && tar -xzf /tmp/JsonConfig-REL1_33-e19c474.tar.gz -C /var/www/html/extensions \
+  && curl -o /tmp/Graph-REL1_33-7e100b5.tar.gz https://extdist.wmflabs.org/dist/extensions/Graph-REL1_33-7e100b5.tar.gz \
+  && tar -xzf /tmp/Graph-REL1_33-7e100b5.tar.gz -C /var/www/html/extensions \
+  && curl -o /tmp/SubPageList3-REL1_33-5f9e91b.tar.gz https://extdist.wmflabs.org/dist/extensions/SubPageList3-REL1_33-5f9e91b.tar.gz \
+  && tar -xzf /tmp/SubPageList3-REL1_33-5f9e91b.tar.gz -C /var/www/html/extensions \
+  && curl -o /tmp/Scribunto-REL1_33-8328acb.tar.gz https://extdist.wmflabs.org/dist/extensions/Scribunto-REL1_33-8328acb.tar.gz \
+  && tar -xzf /tmp/Scribunto-REL1_33-8328acb.tar.gz -C /var/www/html/extensions \
+  && curl -o /tmp/MsUpload-REL1_33-2c533f8.tar.gz https://extdist.wmflabs.org/dist/extensions/MsUpload-REL1_33-2c533f8.tar.gz \
+  && tar -xzf /tmp/MsUpload-REL1_33-2c533f8.tar.gz -C /var/www/html/extensions \
   && curl -o /tmp/TemplateStyles-REL1_31-814b63c.tar.gz https://extdist.wmflabs.org/dist/extensions/TemplateStyles-REL1_31-814b63c.tar.gz \
   && tar -xzf /tmp/TemplateStyles-REL1_31-814b63c.tar.gz -C /var/www/html/extensions
 
@@ -78,3 +79,6 @@ RUN chmod 755 /usr/local/bin/*
 # Add crontab file in the cron directory
 ADD crontab /etc/crontab
 RUN chmod 0644 /etc/crontab
+
+# Set for production
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
