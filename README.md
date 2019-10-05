@@ -15,6 +15,7 @@ This is primarily designed to run atop Kube, but here's some entrypoints if you 
  * To build the container: `build.sh`
  * To run a browser container: `run.sh`
  * To run a cron container: `cron.sh`
+ * To run a worker node container: `jobs.sh`
 
 ### Quickstart
 
@@ -25,7 +26,8 @@ This is primarily designed to run atop Kube, but here's some entrypoints if you 
 | MEDIAWIKI_DEBUG            |                  | unset                    | Set this to enable debug traces |
 | MEDIAWIKI_DISABLE_ICONS    | $wgFooterIcons   | unset                    | Set this to disable footer icons |
 | MEDIAWIKI_SITE_SERVER      | $wgServer        | `http://127.0.0.1:8080` | Set this to the server host, protocol, and port if it's not a standard port. This is what MediaWiki uses to generate URLs |
-| MEDIAWIKI_SCRIPT_PATH      | $wgScriptPath    | null
+| MEDIAWIKI_SCRIPT_PATH      | $wgScriptPath    | null | The base URL path |
+| MEDIAWIKI_UPLOAD_PATH      | $wgUploadPath    | null | The path for uploads |
 | MEDIAWIKI_SITE_NAME        | $wgSitename      | `tst`                      | Name of the site |
 | MEDIAWIKI_SITE_LANG        | $wgLanguageCode  | `en`                       | Language of the site|
 | MEDIAWIKI_ADMIN_USER       |                  | `admin`                    | Name of the admin user |

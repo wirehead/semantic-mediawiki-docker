@@ -31,6 +31,9 @@ $wgScriptPath = getenv("MEDIAWIKI_SCRIPT_PATH");
 ## The protocol and server name to use in fully-qualified URLs
 $wgServer = getenv("MEDIAWIKI_SITE_SERVER");
 
+## The upload path
+$wgUploadPath = getenv("MEDIAWIKI_UPLOAD_PATH");
+
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
 
