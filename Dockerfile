@@ -16,7 +16,6 @@ ENV MEDIAWIKI_SECRET_KEY 38e094128cb103129e13530c86c389350c94dfc7c278f28da4f3870
 ENV MEDIAWIKI_EMAIL_PW_SENDER nobody@example.com
 ENV MEDIAWIKI_EMAIL_EMERG_CONT nobody@example.com
 ENV SMW_SEMANTIC_URL http://www.example.com/
-ENV MEDIAWIKI_ARTICLE_PATH "/wiki/$1"
 
 # System dependencies for extensions
 RUN set -eux; \

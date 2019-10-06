@@ -33,10 +33,10 @@ $wgServer = getenv("MEDIAWIKI_SITE_SERVER");
 
 ## The upload path
 $wgUploadPath = getenv("MEDIAWIKI_UPLOAD_PATH");
-$wgUploadDirectory = "/var/www/localstore/images";
 
 # Article path
-$wgArticlePath = getenv("MEDIAWIKI_ARTICLE_PATH");
+$wgArticlePath = "/wiki/$1";
+$wgUploadDirectory = "/var/www/localstore/images";
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
