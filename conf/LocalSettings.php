@@ -33,6 +33,12 @@ $wgServer = getenv("MEDIAWIKI_SITE_SERVER");
 
 ## The upload path
 $wgUploadPath = getenv("MEDIAWIKI_UPLOAD_PATH");
+$wgUploadDirectory = "/var/www/localstore/images";
+
+# Article path
+$wgArticlePath = getenv("MEDIAWIKI_ARTICLE_PATH");
+
+
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
@@ -192,10 +198,6 @@ $smwgConfigFileDir = '/var/www/localstore/smwconfig';
 
 # Workaround for a bug in mw-extension-registry-helper
 define("MW_VERSION", $wgVersion);
-
-# Apache rewrite
-$wgArticlePath = "/wiki/$1";
-$wgUploadDirectory = "/var/www/localstore/images";
 
 # Icons
 $wgLogo = "favicon-135x135.png";
