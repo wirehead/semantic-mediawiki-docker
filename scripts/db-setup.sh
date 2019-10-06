@@ -37,10 +37,3 @@ echo update.php
 echo
 
 php maintenance/update.php --quick
-
-# Run the first batch of jobs.
-
-echo runJobs.php
-echo
-
- php maintenance/runJobs.php
