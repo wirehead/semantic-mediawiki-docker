@@ -38,8 +38,6 @@ $wgUploadDirectory = "/var/www/localstore/images";
 # Article path
 $wgArticlePath = getenv("MEDIAWIKI_ARTICLE_PATH");
 
-
-
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
 
