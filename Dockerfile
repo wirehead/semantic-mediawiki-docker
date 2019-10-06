@@ -26,6 +26,7 @@ RUN set -eux; \
         graphviz mscgen \
         libpq-dev \
         cron \
+        rclone \
     ; \
     rm -rf /var/lib/apt/lists/*
 
@@ -58,7 +59,8 @@ RUN curl -o /tmp/JsonConfig-REL1_33-e19c474.tar.gz https://extdist.wmflabs.org/d
   && curl -o /tmp/MsUpload-REL1_33-2c533f8.tar.gz https://extdist.wmflabs.org/dist/extensions/MsUpload-REL1_33-2c533f8.tar.gz \
   && tar -xzf /tmp/MsUpload-REL1_33-2c533f8.tar.gz -C /var/www/html/extensions \
   && curl -o /tmp/TemplateStyles-REL1_31-814b63c.tar.gz https://extdist.wmflabs.org/dist/extensions/TemplateStyles-REL1_31-814b63c.tar.gz \
-  && tar -xzf /tmp/TemplateStyles-REL1_31-814b63c.tar.gz -C /var/www/html/extensions
+  && tar -xzf /tmp/TemplateStyles-REL1_31-814b63c.tar.gz -C /var/www/html/extensions \
+  && rm /tmp/*.tar.gz
 
 # Install Composer
 RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
@@ -76,6 +78,8 @@ RUN composer update
 # Place our maintenence and setup scripts
 COPY scripts/* /usr/local/bin/
 RUN chmod 755 /usr/local/bin/*
+COPY backup/* /usr/local/backup-scripts/
+RUN chmod 755 /usr/local/backup-scripts/*
 
 # Add crontab file in the cron directory
 ADD crontab /etc/crontab

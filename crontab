@@ -1,13 +1,16 @@
 # Reference: https://www.semantic-mediawiki.org/wiki/Cron_jobs
 
 # Update Special Pages
-45 7 * * * www-data /usr/local/bin/updateSpecialPages.sh  > /proc/1/fd/1 2>/proc/1/fd/2
+45 7 * * * root /usr/local/bin/updateSpecialPages.sh  > /proc/1/fd/1 2>/proc/1/fd/2
+
+# Run backups
+43 0 * * * root /usr/local/backup-scripts/backup-script.sh > /proc/1/fd/1 2>/proc/1/fd/2
 
 # SemanticMediaWiki recommended maintenance
-30 * * * * www-data /usr/local/bin/updateEntityCollation.sh > /proc/1/fd/1 2>/proc/1/fd/2
-15 9 * * SAT www-data /usr/local/bin/rebuildData.sh > /proc/1/fd/1 2>/proc/1/fd/2
-15 9 * * SUN www-data /usr/local/bin/setupStore.sh > /proc/1/fd/1 2>/proc/1/fd/2
-15 3 1 * * www-data php /usr/local/bin/removeDuplicateEntities.sh > /proc/1/fd/1 2>/proc/1/fd/2
+30 * * * * root /usr/local/bin/updateEntityCollation.sh > /proc/1/fd/1 2>/proc/1/fd/2
+15 9 * * SAT root /usr/local/bin/rebuildData.sh > /proc/1/fd/1 2>/proc/1/fd/2
+15 9 * * SUN root /usr/local/bin/setupStore.sh > /proc/1/fd/1 2>/proc/1/fd/2
+15 3 1 * * root php /usr/local/bin/removeDuplicateEntities.sh > /proc/1/fd/1 2>/proc/1/fd/2
 
 # remember to end this file with an empty new line
 
