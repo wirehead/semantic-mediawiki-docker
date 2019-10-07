@@ -4,5 +4,5 @@ set -e
 echo updateSpecialPages
 echo 
 
-php /var/www/html/maintenance/updateSpecialPages.php
+/usr/local/bin/php /var/www/html/maintenance/updateSpecialPages.php
 echo updateSpecialPages finished

@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-php maintenance/update.php
+/usr/local/bin/php maintenance/update.php
