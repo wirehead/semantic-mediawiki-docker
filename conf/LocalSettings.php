@@ -62,7 +62,9 @@ $wgDBpassword = getenv("MEDIAWIKI_DB_PASSWORD");
 
 # Postgres specific settings
 $wgDBport = getenv("MEDIAWIKI_DB_PORT");
-$wgDBmwschema = getenv("MEDIAWIKI_DB_SCHEMA");
+if (getenv("MEDIAWIKI_DB_SCHEMA")) {
+    $wgDBmwschema = getenv("MEDIAWIKI_DB_SCHEMA");
+}
 
 # SQLite-specific settings
 $wgSQLiteDataDir = getenv("MEDIAWIKI_DATABASE_DIR");
