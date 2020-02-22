@@ -5,7 +5,7 @@
         "mediawiki/semantic-bundle": "~3.1",
         "mediawiki/semantic-scribunto": "~2.1",
 
-        "mediawiki/chameleon-skin": "~2.0"
+        "mediawiki/chameleon-skin": "~2.1"
     }
 
 }
