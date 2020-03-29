@@ -1,4 +1,4 @@
-FROM mediawiki:1.34.1
+FROM mediawiki:1.34
 
 ARG COMPOSER_VERSION=1.9.0
 
