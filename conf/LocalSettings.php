@@ -133,6 +133,8 @@ $wgGroupPermissions['*']['read'] = false;
 ## names, ie 'vector', 'monobook':
 $wgDefaultSkin = "vector";
 
+$wgDisableCounters = false;
+
 # Enabled skins.
 # The following skins were automatically enabled:
 wfLoadSkin( 'MonoBook' );
@@ -194,9 +196,6 @@ ini_set('memory_limit', '-1');
 
 # Move the SMW config directory
 $smwgConfigFileDir = '/var/www/localstore/smwconfig';
-
-# Workaround for a bug in mw-extension-registry-helper
-define("MW_VERSION", $wgVersion);
 
 # Icons
 $wgLogo = "favicon-135x135.png";
