@@ -47,11 +47,6 @@ jobs:
 
         echo IMAGE_ID=$IMAGE_ID
         echo VERSION=$VERSION
-        docker tag image $IMAGE_ID:$VERSION
-        echo tag
+        docker tag $IMAGE_ID:${{ github.sha }} $IMAGE_ID:$VERSION
         docker push $IMAGE_ID:$VERSION
-        echo push
-        docker tag image $IMAGE_ID:${{ github.sha }}
-        echo tag
         docker push $IMAGE_ID:${{ github.sha }}
-        echo push
