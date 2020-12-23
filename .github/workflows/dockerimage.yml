@@ -27,7 +27,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag docker.pkg.github.com/wirehead/semantic-mediawiki:${{ github.sha }}
+      run: docker build . --file Dockerfile --tag docker.pkg.github.com/wirehead/$IMAGE_NAME:${{ github.sha }}
 
     - name: Log into registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
@@ -44,7 +44,7 @@ jobs:
 
         # Use Docker `latest` tag convention
         [ "$VERSION" == "master" ] && VERSION=latest
-        
+
         echo IMAGE_ID=$IMAGE_ID
         echo VERSION=$VERSION
         docker tag image $IMAGE_ID:$VERSION
