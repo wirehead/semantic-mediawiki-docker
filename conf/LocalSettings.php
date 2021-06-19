@@ -172,10 +172,27 @@ wfLoadExtension( 'TemplateStyles' );
 
 $wgScribuntoDefaultEngine = 'luastandalone';
 
-# Load the added skins
-wfLoadSkin( 'chameleon' );
+wfLoadExtensions( [
 
-require_once '/var/www/html/extensions/SemanticBundle/SemanticBundle.php';
+    // Result formats
+    'SemanticResultFormats',
+    'Maps',
+    'ModernTimeline',
+    'Mermaid',
+
+    // General purpose
+    'SemanticExtraSpecialProperties',
+    'SemanticCompoundQueries',
+
+    // Domain specific
+    'SemanticCite',
+    'SemanticMetaTags',
+    'SemanticBreadcrumbLinks',
+    'SemanticInterlanguageLinks',
+
+    // UI / UX
+    'PageForms',
+] );
 
 # Turn on SemanticMediaWiki
 enableSemantics( getenv("SMW_SEMANTIC_URL") );

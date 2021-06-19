@@ -53,8 +53,9 @@ This is primarily designed to run atop Kube, but here's some entrypoints if you 
 
 v{container version}-{mediawiki major version}-{semanticmediawiki major version}
 
-* The container version will obey SemVer, such that the minor/major version change means that you need to upgrade the Helm chart and/or run a migration script
+* The container version will obey SemVer, such that the minor/major version change means that you need to upgrade the Helm chart and/or run a migration script.
 * The MediaWiki and SemanticMediaWiki versions are there because a lot of compatibility stuff depends on them
+* All three are on an independent release cycle.
 
 ## Some details
 
