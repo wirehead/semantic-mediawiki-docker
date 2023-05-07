@@ -172,6 +172,11 @@ wfLoadExtension( 'TemplateStyles' );
 
 $wgScribuntoDefaultEngine = 'luastandalone';
 
+# Turn on SemanticMediaWiki
+wfLoadExtension( 'SemanticMediaWiki' );
+enableSemantics( getenv("SMW_SEMANTIC_URL") );
+
+
 wfLoadExtensions( [
 
     // Result formats
@@ -185,17 +190,14 @@ wfLoadExtensions( [
     'SemanticCompoundQueries',
 
     // Domain specific
-    'SemanticCite',
-    'SemanticMetaTags',
-    'SemanticBreadcrumbLinks',
-    'SemanticInterlanguageLinks',
+    //'SemanticCite',
+    //'SemanticMetaTags',
+    //'SemanticBreadcrumbLinks',
+    //'SemanticInterlanguageLinks',
 
     // UI / UX
     'PageForms',
 ] );
-
-# Turn on SemanticMediaWiki
-enableSemantics( getenv("SMW_SEMANTIC_URL") );
 
 # Set Subpages on
 $wgNamespacesWithSubpages[NS_MAIN] = 1;

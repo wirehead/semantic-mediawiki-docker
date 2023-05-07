@@ -1,4 +1,4 @@
-FROM mediawiki:1.36
+FROM mediawiki:1.37
 
 ARG COMPOSER_VERSION=2.1.3
 
@@ -48,16 +48,16 @@ COPY 000-default.conf /etc/apache2/sites-available
 COPY icons/* /var/www/html/
 
 # Download the non-Composer-based extensions
-RUN curl -o /tmp/JsonConfig-REL1_36-b1e3fe3.tar.gz https://extdist.wmflabs.org/dist/extensions/JsonConfig-REL1_36-b1e3fe3.tar.gz \
-  && tar -xzf /tmp/JsonConfig-REL1_36-b1e3fe3.tar.gz -C /var/www/html/extensions \
-  && curl -o /tmp/Graph-REL1_36-545d3a3.tar.gz https://extdist.wmflabs.org/dist/extensions/Graph-REL1_36-545d3a3.tar.gz \
-  && tar -xzf /tmp/Graph-REL1_36-545d3a3.tar.gz -C /var/www/html/extensions \
-  && curl -o /tmp/SubPageList3-REL1_36-73b0e13.tar.gz https://extdist.wmflabs.org/dist/extensions/SubPageList3-REL1_36-73b0e13.tar.gz \
-  && tar -xzf /tmp/SubPageList3-REL1_36-73b0e13.tar.gz -C /var/www/html/extensions \
-  && curl -o /tmp/MsUpload-REL1_36-d0a0667.tar.gz https://extdist.wmflabs.org/dist/extensions/MsUpload-REL1_36-d0a0667.tar.gz \
-  && tar -xzf /tmp/MsUpload-REL1_36-d0a0667.tar.gz -C /var/www/html/extensions \
-  && curl -o /tmp/TemplateStyles-REL1_36-e548bf1.tar.gz https://extdist.wmflabs.org/dist/extensions/TemplateStyles-REL1_36-e548bf1.tar.gz \
-  && tar -xzf /tmp/TemplateStyles-REL1_36-e548bf1.tar.gz -C /var/www/html/extensions \
+RUN curl -o /tmp/JsonConfig-REL1_37-72f0f83.tar.gz https://extdist.wmflabs.org/dist/extensions/JsonConfig-REL1_37-72f0f83.tar.gz \
+  && tar -xzf /tmp/JsonConfig-REL1_37-72f0f83.tar.gz -C /var/www/html/extensions \
+  && curl -o /tmp/Graph-REL1_37-cb99fd6.tar.gz https://extdist.wmflabs.org/dist/extensions/Graph-REL1_37-cb99fd6.tar.gz \
+  && tar -xzf /tmp/Graph-REL1_37-cb99fd6.tar.gz -C /var/www/html/extensions \
+  && curl -o /tmp/SubPageList3-REL1_37-d0102ef.tar.gz https://extdist.wmflabs.org/dist/extensions/SubPageList3-REL1_37-d0102ef.tar.gz \
+  && tar -xzf /tmp/SubPageList3-REL1_37-d0102ef.tar.gz -C /var/www/html/extensions \
+  && curl -o /tmp/MsUpload-REL1_37-6e1f946.tar.gz https://extdist.wmflabs.org/dist/extensions/MsUpload-REL1_37-6e1f946.tar.gz \
+  && tar -xzf /tmp/MsUpload-REL1_37-6e1f946.tar.gz -C /var/www/html/extensions \
+  && curl -o /tmp/TemplateStyles-REL1_37-4c6db35.tar.gz https://extdist.wmflabs.org/dist/extensions/TemplateStyles-REL1_37-4c6db35.tar.gz \
+  && tar -xzf /tmp/TemplateStyles-REL1_37-4c6db35.tar.gz -C /var/www/html/extensions \
   && rm /tmp/*.tar.gz
 
 # Install Composer
